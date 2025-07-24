@@ -1,0 +1,120 @@
+
+<!-- ===============================
+FILE: templates/welcome.html
+=============================== -->
+
+{% extends "base.html" %}
+
+{% block title %}Welcome - Flask App{% endblock %}
+
+{% block content %}
+<div class="welcome-container">
+    <div class="welcome-card">
+        <div class="welcome-header">
+            <div class="welcome-avatar">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <h1>Welcome, {{ user.username }}!</h1>
+            <p class="welcome-subtitle">Great to see you back</p>
+        </div>
+
+        <div class="welcome-content">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Member Since</h3>
+                        <p>{{ user.created_at.strftime('%B %d, %Y') }}</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Email</h3>
+                        <p>{{ user.email }}</p>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Last Login</h3>
+                        <p>Just now</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" onclick="showProfile()">
+                    <i class="fas fa-user-edit"></i>
+                    Edit Profile
+                </button>
+                <button class="btn btn-secondary" onclick="showSettings()">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="quick-actions">
+        <h2>Quick Actions</h2>
+        <div class="actions-grid">
+            <div class="action-item">
+                <i class="fas fa-plus-circle"></i>
+                <h3>Create New</h3>
+                <p>Start something amazing</p>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>View Analytics</h3>
+                <p>Check your progress</p>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-users"></i>
+                <h3>Team</h3>
+                <p>Collaborate with others</p>
+            </div>
+            <div class="action-item">
+                <i class="fas fa-question-circle"></i>
+                <h3>Help</h3>
+                <p>Get support</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showProfile() {
+    alert('Profile editing feature coming soon!');
+}
+
+function showSettings() {
+    alert('Settings feature coming soon!');
+}
+
+// Welcome animation
+document.addEventListener('DOMContentLoaded', function() {
+    const welcomeCard = document.querySelector('.welcome-card');
+    welcomeCard.style.opacity = '0';
+    welcomeCard.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        welcomeCard.style.transition = 'all 0.6s ease';
+        welcomeCard.style.opacity = '1';
+        welcomeCard.style.transform = 'translateY(0)';
+    }, 100);
+});
+</script>
+{% endblock %}

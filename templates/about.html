@@ -1,0 +1,152 @@
+    <!-- JavaScript for interactive elements -->
+    <!-- ===============================
+FILE: templates/about.html
+=============================== -->
+
+{% extends "base.html" %}
+
+{% block title %}About - Flask App{% endblock %}
+
+{% block content %}
+<div class="about-container">
+    <div class="about-hero">
+        <div class="about-hero-content">
+            <h1><i class="fas fa-info-circle"></i> About Our App</h1>
+            <p class="hero-subtitle">Learn more about our Flask authentication system</p>
+        </div>
+    </div>
+
+    <div class="about-content">
+        <div class="about-section">
+            <div class="section-icon">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <h2>What We Do</h2>
+            <p>This is a modern Flask web application that provides secure user authentication and registration. Built with clean code practices and modern web technologies, it offers a seamless user experience for managing user accounts.</p>
+        </div>
+
+        <div class="about-section">
+            <div class="section-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h2>Security First</h2>
+            <p>We prioritize security with password hashing using Werkzeug, secure session management, and protection against common web vulnerabilities. Your data is safe with us.</p>
+        </div>
+
+        <div class="about-section">
+            <div class="section-icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <h2>Technology Stack</h2>
+            <p>Built with Flask (Python), PostgreSQL (Neon DB), and modern HTML/CSS. We use raw SQL queries for maximum performance and control over database operations.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <i class="fas fa-user-plus"></i>
+                <h3>Easy Registration</h3>
+                <p>Simple and secure user registration with email validation</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-sign-in-alt"></i>
+                <h3>Quick Login</h3>
+                <p>Fast login with username or email support</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Responsive Design</h3>
+                <p>Works perfectly on desktop, tablet, and mobile devices</p>
+            </div>
+            
+            <div class="feature-card">
+                <i class="fas fa-lock"></i>
+                <h3>Secure Sessions</h3>
+                <p>Protected user sessions with automatic logout</p>
+            </div>
+        </div>
+
+        <div class="about-section">
+            <div class="section-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <h2>Open Source</h2>
+            <p>This project demonstrates best practices in Flask development, including proper error handling, input validation, and secure password management. Perfect for learning and extending.</p>
+        </div>
+
+        <div class="cta-section">
+            <h2>Ready to Get Started?</h2>
+            <p>Join our community today and experience secure, modern web authentication.</p>
+            <div class="cta-buttons">
+                {% if not session.user_id %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Sign Up Now
+                </a>
+                <a href="{{ url_for('login') }}" class="btn btn-secondary">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+                {% else %}
+                <a href="{{ url_for('welcome') }}" class="btn btn-primary">
+                    <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Animate sections on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.about-section, .feature-card');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'all 0.6s ease';
+        observer.observe(section);
+    });
+});
+</script>
+{% endblock %}
+
+<script>
+        // Auto-hide flash messages after 5 seconds
+        setTimeout(() => {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(msg => {
+                msg.style.opacity = '0';
+                setTimeout(() => msg.remove(), 300);
+            });
+        }, 5000);
+
+        // Form validation
+        function validateForm(formId) {
+            const form = document.getElementById(formId);
+            const inputs = form.querySelectorAll('input[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add('error');
+                    isValid = false;
+                } else {
+                    input.classList.remove('error');
+                }
+            });
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
